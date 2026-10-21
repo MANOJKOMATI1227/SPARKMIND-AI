@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SparkMind AI — Social Media Posters & Flex Kit</title>
+  <link rel="icon" type="image/svg+xml" href="/poster-instagram.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #06080d;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .poster-card {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 1.5rem;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+    .poster-card:hover {
+      border-color: rgba(245, 158, 11, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 24px 45px -10px rgba(245, 158, 11, 0.25);
+    }
+    @keyframes auroraFloat1 {
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(50px, -40px) scale(1.15); }
+      66% { transform: translate(-30px, 30px) scale(0.9); }
+    }
+    @keyframes auroraFloat2 {
+      0%, 100% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(-60px, 40px) scale(1.2); }
+      66% { transform: translate(40px, -30px) scale(0.95); }
+    }
+    .anim-blob-1 { animation: auroraFloat1 18s ease-in-out infinite alternate; }
+    .anim-blob-2 { animation: auroraFloat2 22s ease-in-out infinite alternate; }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8 flex flex-col items-center relative">
+  {/* Fluid Aurora Ambient Mesh Background */}
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-1/4 -left-1/4 w-[70vw] h-[70vw] rounded-full filter blur-[110px] anim-blob-1" style="background: radial-gradient(circle, rgba(147, 51, 234, 0.4) 0%, rgba(79, 70, 229, 0.25) 50%, transparent 70%);"></div>
+    <div class="absolute top-1/3 -right-1/4 w-[65vw] h-[65vw] rounded-full filter blur-[110px] anim-blob-2" style="background: radial-gradient(circle, rgba(236, 72, 153, 0.38) 0%, rgba(245, 158, 11, 0.28) 50%, transparent 70%);"></div>
+    <div class="absolute -bottom-1/4 left-1/4 w-[75vw] h-[75vw] rounded-full filter blur-[120px] anim-blob-1" style="background: radial-gradient(circle, rgba(6, 182, 212, 0.32) 0%, rgba(59, 130, 246, 0.22) 50%, transparent 70%);"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="max-w-4xl text-center my-6 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-bold tracking-wider">
+      <span>⚡ OFFICIAL PROMOTIONAL SUITE</span>
+      <span>•</span>
+      <span>BUILT BY KOMATI MANOJ KUMAR</span>
+    </div>
+    <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white">
+      SPARKMIND <span class="bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 bg-clip-text text-transparent">AI</span> POSTERS
+    </h1>
+    <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
+      High-resolution promotional posters ready to flex on WhatsApp Status, Instagram, and LinkedIn. Preview, download high-res PNG / SVG, or copy ready-made captions.
+    </p>
+  </header>
+
+  <!-- Posters Showcase Grid -->
+  <main class="w-full max-w-6xl space-y-12 pb-16">
+
+    <!-- 1. Instagram Post (1:1 Square) -->
+    <section class="poster-card p-6 sm:p-8">
+      <div class="flex flex-col lg:flex-row items-center gap-8">
+        <!-- Visual Preview Frame Filled with Fluid Ambient Background -->
+        <div class="w-full max-w-md aspect-square rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 backdrop-blur-xl flex-shrink-0">
+          <img id="img-insta" src="/poster-instagram.svg" alt="Instagram Poster" class="w-full h-full object-contain block" />
+        </div>
+
+        <!-- Info & Actions -->
+        <div class="flex-1 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold">
+              📸 INSTAGRAM POST
+            </span>
+            <span class="text-xs text-slate-500">1080 x 1080 px • 1:1 Aspect</span>
+          </div>
+
+          <h2 class="text-2xl font-bold text-white">Square Feed Poster</h2>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            High-contrast dark cyberpunk poster highlighting the 5 workspaces, live code sandbox, ATS resume analyzer, and Telugu AI. Includes author badge: <strong class="text-slate-200">Built by Komati Manoj Kumar</strong>.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button onclick="downloadPNG('/poster-instagram.svg', 'sparkmind_instagram_post.png', 1080, 1080)" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition cursor-pointer flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download High-Res PNG (2K)</span>
+            </button>
+
+            <a href="/poster-instagram.svg" download="sparkmind_instagram_post.svg" class="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition flex items-center gap-2">
+              <span>Download Vector SVG</span>
+            </a>
+
+            <button onclick="copyCaption('insta')" id="btn-copy-insta" class="px-4 py-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-bold text-xs transition cursor-pointer">
+              📋 Copy Instagram Caption
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. WhatsApp Status & Insta Story (9:16 Vertical) -->
+    <section class="poster-card p-6 sm:p-8">
+      <div class="flex flex-col lg:flex-row items-center gap-8">
+        <!-- Visual Preview Frame Filled with Fluid Ambient Background -->
+        <div class="w-full max-w-[320px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 backdrop-blur-xl flex-shrink-0">
+          <img id="img-story" src="/poster-whatsapp.svg" alt="WhatsApp Story Poster" class="w-full h-full object-contain block" />
+        </div>
+
+        <!-- Info & Actions -->
+        <div class="flex-1 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold">
+              💬 WHATSAPP STATUS &amp; STORY
+            </span>
+            <span class="text-xs text-slate-500">1080 x 1920 px • 9:16 Vertical</span>
+          </div>
+
+          <h2 class="text-2xl font-bold text-white">Full-Screen Mobile Story</h2>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Tall portrait design tailored for smartphone screens, WhatsApp status, and Instagram Reels. Displays all 5 specialized workspaces, live chat simulation bubble, and MIT open-source author license.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button onclick="downloadPNG('/poster-whatsapp.svg', 'sparkmind_whatsapp_story.png', 1080, 1920)" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition cursor-pointer flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download High-Res PNG (2K)</span>
+            </button>
+
+            <a href="/poster-whatsapp.svg" download="sparkmind_whatsapp_story.svg" class="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition flex items-center gap-2">
+              <span>Download Vector SVG</span>
+            </a>
+
+            <button onclick="copyCaption('whatsapp')" id="btn-copy-wa" class="px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold text-xs transition cursor-pointer">
+              💬 Copy WhatsApp Text
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. LinkedIn Banner & Showcase (16:9 Widescreen) -->
+    <section class="poster-card p-6 sm:p-8">
+      <div class="flex flex-col lg:flex-row items-center gap-8">
+        <!-- Visual Preview Frame Filled with Fluid Ambient Background -->
+        <div class="w-full max-w-lg aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white/5 backdrop-blur-xl flex-shrink-0">
+          <img id="img-li" src="/poster-linkedin.svg" alt="LinkedIn Banner" class="w-full h-full object-contain block" />
+        </div>
+
+        <!-- Info & Actions -->
+        <div class="flex-1 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold">
+              💼 LINKEDIN &amp; TWITTER
+            </span>
+            <span class="text-xs text-slate-500">1200 x 675 px • 16:9 Widescreen</span>
+          </div>
+
+          <h2 class="text-2xl font-bold text-white">Engineering Showcase Banner</h2>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Wide software architecture layout with feature cards stacked alongside branding and author credentials. Ideal for LinkedIn project posts, portfolio headers, and tech articles.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button onclick="downloadPNG('/poster-linkedin.svg', 'sparkmind_linkedin_banner.png', 1200, 675)" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition cursor-pointer flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download High-Res PNG (2K)</span>
+            </button>
+
+            <a href="/poster-linkedin.svg" download="sparkmind_linkedin_banner.svg" class="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition flex items-center gap-2">
+              <span>Download Vector SVG</span>
+            </a>
+
+            <button onclick="copyCaption('linkedin')" id="btn-copy-li" class="px-4 py-2.5 rounded-xl border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 font-bold text-xs transition cursor-pointer">
+              💼 Copy LinkedIn Post
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-slate-500 pb-10">
+    Designed for <strong>Komati Manoj Kumar</strong> • SparkMind AI Platform • Powered by Google Gemini
+  </footer>
+
+  <script>
+    // PNG converter and downloader
+    async function downloadPNG(svgUrl, filename, width, height) {
+      try {
+        const response = await fetch(svgUrl);
+        const svgText = await response.text();
+        const blob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const scale = 2; // 2x DPI
+          canvas.width = width * scale;
+          canvas.height = height * scale;
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          const a = document.createElement('a');
+          a.download = filename;
+          a.href = canvas.toDataURL('image/png');
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        };
+        img.src = url;
+      } catch (err) {
+        window.open(svgUrl, '_blank');
+      }
+    }
+
+    // Captions copy
+    const captions = {
+      insta: `🔥 Built a full-stack AI workspace powered by Google Gemini! ⚡\n\nMeet SparkMind AI — engineered for students, developers, and founders.\n\n✨ What can it do?\n💻 Run code directly in your browser (HTML, JS, Python)\n🎓 Generate university 10-mark structured answers & MCQs\n🚀 Validate startup ideas and build pitch decks in seconds\n🗣️ Understands Telugu, Tenglish, Hindi & global languages\n📄 Calculates your ATS Resume score with optimization tips\n\n👨‍💻 Built by @komatimanojkumar\n📜 Free & Open Source (MIT License)\n\n#SparkMindAI #ArtificialIntelligence #GoogleGemini #FullStackDeveloper #CodingLife #WebDev #TeluguAI #TechProjects #BuildInPublic #OpenSource`,
+
+      whatsapp: `⚡ *SparkMind AI — Built by Komati Manoj Kumar!* 🚀\n\nAn all-in-one AI Chatbot & Specialized Workspace powered by Google Gemini:\n\n🎓 *Student Hub*: 10-mark exam structures, revision notes & MCQs\n💻 *Developer Studio*: In-browser code execution & bug fixing\n🌐 *Telugu & Global AI*: Understands Telugu script & conversational Tenglish\n📄 *ATS Resume Scanner*: Instant compatibility score & keyword suggestions\n🚀 *Founder Launchpad*: Startup pitch deck & business proposal builder\n\nTry it live on mobile or desktop:\n👉 https://ais-dev-e27u53ltsspigabch3zgi4-723994134236.asia-east1.run.app\n\n*100% Free & Open Source (MIT License)* ⭐`,
+
+      linkedin: `🚀 Excited to launch SparkMind AI — a production-ready Multilingual AI Chatbot & Specialized Engineering Workspace powered by Google Gemini!\n\nSparkMind isn't just another wrapper; it is an end-to-end workspace built with 5 tailored modes:\n• 🎓 Student Study Hub: Generates 10-mark university exam answer blueprints, formulas, and flashcards.\n• 💻 Developer Studio: In-browser code runner (HTML, JS, Python) with root-cause bug debugging.\n• 🚀 Founder Launchpad: Instant 10-slide pitch decks, ICP validation, and 30-day GTM checklists.\n• 🏢 Business Strategy: Client proposals, negotiation emails, and omnichannel roadmaps.\n• 🌍 Telugu & Multilingual Fluency: Understands native Telugu script and conversational Tenglish natively alongside global languages.\n• 📄 ATS Resume Assistant: Real-time keyword scoring and impact bullet rewriting.\n\n👨‍💻 Engineered & Architected by Komati Manoj Kumar\n📜 100% Free & Open Source under the MIT License\n\nTry the live application here:\n👉 https://ais-dev-e27u53ltsspigabch3zgi4-723994134236.asia-east1.run.app\n\n#AI #GoogleGemini #FullStack #TypeScript #React #WebDevelopment #OpenSource #SoftwareEngineering #BuildInPublic`
+    };
+
+    function copyCaption(type) {
+      navigator.clipboard.writeText(captions[type]);
+      const btn = document.getElementById(type === 'insta' ? 'btn-copy-insta' : type === 'whatsapp' ? 'btn-copy-wa' : 'btn-copy-li');
+      const originalText = btn.innerText;
+      btn.innerText = '✅ Copied to Clipboard!';
+      setTimeout(() => { btn.innerText = originalText; }, 2000);
+    }
+  </script>
+</body>
+</html>

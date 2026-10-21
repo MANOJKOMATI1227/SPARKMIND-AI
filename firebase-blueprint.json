@@ -1,0 +1,81 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile and authentication settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "User avatar URL" },
+        "createdAt": { "type": "string", "description": "Account creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Last profile update timestamp" }
+      },
+      "required": ["uid"]
+    },
+    "ManagedUser": {
+      "title": "ManagedUser",
+      "description": "Workspace user account profile tracked by administration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user or account identifier" },
+        "name": { "type": "string", "description": "User full name" },
+        "email": { "type": "string", "description": "User account email address" },
+        "role": { "type": "string", "enum": ["super_admin", "admin", "user"] },
+        "status": { "type": "string", "enum": ["active", "suspended"] },
+        "online": { "type": "boolean", "description": "Whether user is currently connected and active" },
+        "provider": { "type": "string", "enum": ["google", "email", "system"] },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "lastLoginAt": { "type": "string", "description": "Last active session timestamp" }
+      },
+      "required": ["id", "email", "role", "status"]
+    },
+    "UploadedDocument": {
+      "title": "UploadedDocument",
+      "description": "Documents and images uploaded by the user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Document unique identifier" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "name": { "type": "string", "description": "Original file name" },
+        "type": { "type": "string", "description": "MIME type (image, pdf, text, etc.)" },
+        "size": { "type": "number", "description": "File size in bytes" },
+        "dataUrl": { "type": "string", "description": "Base64 or storage URL" },
+        "createdAt": { "type": "string", "description": "Upload timestamp" }
+      },
+      "required": ["id", "userId", "name", "type"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Stored chat messages and conversations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Message ID" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "role": { "type": "string", "enum": ["user", "assistant", "system"] },
+        "content": { "type": "string", "description": "Message text content" },
+        "timestamp": { "type": "string", "description": "Creation ISO date" }
+      },
+      "required": ["id", "userId", "role", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile data only accessible by the owner"
+    },
+    "/users/{userId}/documents/{docId}": {
+      "schema": "UploadedDocument",
+      "description": "Unlimited documents and images uploaded by the user"
+    },
+    "/users/{userId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Chat messages belonging to the user"
+    },
+    "/managed_users/{userKey}": {
+      "schema": "ManagedUser",
+      "description": "Live directory of workspace users and real-time active status"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "SparkMind - AI Chatbot & AI Workspace",
+  "description": "Production-ready AI chatbot and workspace powered by Google Gemini. Chat. Code. Learn. Create.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
