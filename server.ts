@@ -791,7 +791,8 @@ async function startServer() {
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
-        hmr: process.env.DISABLE_HMR === 'true' ? false : { server: httpServer },
+        // Disable HMR WebSocket in AI Studio cloud preview environment
+        hmr: false,
       },
       appType: 'spa',
     });
