@@ -43,16 +43,16 @@ interface ComposerProps {
   currentLanguage?: SupportedLanguage;
 }
 
-const AGENTS: { id: AgentType; label: string; icon: string }[] = [
-  { id: 'auto', label: 'Auto (Adaptive)', icon: '✨' },
-  { id: 'general', label: 'General Assistant', icon: '🧠' },
-  { id: 'marketing', label: 'Poster & Visual Designer', icon: '🎨' },
-  { id: 'tutor', label: 'Student Tutor', icon: '🎓' },
-  { id: 'developer', label: 'Code Architect', icon: '💻' },
-  { id: 'researcher', label: 'Deep Researcher', icon: '🔍' },
-  { id: 'startup', label: 'Startup Founder', icon: '🚀' },
-  { id: 'analyst', label: 'Business Analyst', icon: '📊' },
-  { id: 'writer', label: 'Creative Writer', icon: '✍' },
+const AGENTS: { id: AgentType; label: string }[] = [
+  { id: 'auto', label: 'Auto (Adaptive)' },
+  { id: 'general', label: 'General Assistant' },
+  { id: 'marketing', label: 'Poster & Visual Designer' },
+  { id: 'tutor', label: 'Student Tutor' },
+  { id: 'developer', label: 'Code Architect' },
+  { id: 'researcher', label: 'Deep Researcher' },
+  { id: 'startup', label: 'Startup Founder' },
+  { id: 'analyst', label: 'Business Analyst' },
+  { id: 'writer', label: 'Creative Writer' },
 ];
 
 const REASONING_MODES: {
@@ -771,8 +771,7 @@ export const Composer: React.FC<ComposerProps> = ({
                 onClick={() => setShowAgentMenu(!showAgentMenu)}
                 className="flex items-center gap-1 rounded-full px-2.5 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-white/10 transition cursor-pointer backdrop-blur-xl border border-transparent hover:border-white/40"
               >
-                <span>{AGENTS.find((a) => a.id === selectedAgent)?.icon}</span>
-                <span className="hidden md:inline">{AGENTS.find((a) => a.id === selectedAgent)?.label}</span>
+                <span>{AGENTS.find((a) => a.id === selectedAgent)?.label || 'Auto (Adaptive)'}</span>
                 <ChevronDown className="h-3 w-3 text-slate-400" />
               </button>
 
@@ -790,13 +789,12 @@ export const Composer: React.FC<ComposerProps> = ({
                         setSelectedAgent(agent.id);
                         setShowAgentMenu(false);
                       }}
-                      className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-medium text-left transition cursor-pointer ${
+                      className={`flex w-full items-center rounded-lg px-2.5 py-1.5 text-xs font-medium text-left transition cursor-pointer ${
                         selectedAgent === agent.id
                           ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 font-semibold'
                           : 'text-slate-700 dark:text-slate-200 hover:bg-white/70 dark:hover:bg-white/10'
                       }`}
                     >
-                      <span>{agent.icon}</span>
                       <span>{agent.label}</span>
                     </button>
                   ))}

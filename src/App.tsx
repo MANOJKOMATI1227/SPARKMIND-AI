@@ -44,7 +44,7 @@ import { Composer } from './components/chat/Composer.js';
 import { WelcomeState } from './components/chat/WelcomeState.js';
 import { ConversationSearchBar } from './components/chat/ConversationSearchBar.js';
 import { AuthGate } from './components/auth/AuthGate.js';
-import { FpsMonitor } from './components/common/FpsMonitor.js';
+
 
 // Code-split heavy modals and assistant suites for ultra-fast mobile loading & 60 FPS
 const SettingsModal = React.lazy(() => import('./components/settings/SettingsModal.js').then(m => ({ default: m.SettingsModal })));
@@ -1827,8 +1827,6 @@ export default function App() {
         )}
       </React.Suspense>
 
-      {/* Real-time FPS & Performance Speedometer for Mobile & Tablets */}
-      <FpsMonitor showBadge={true} />
 
       {/* In-app Notice & Alert Modal */}
       {appNotice && (
