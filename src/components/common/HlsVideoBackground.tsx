@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Hls from 'hls.js';
+import type HlsType from 'hls.js';
 
 interface HlsVideoBackgroundProps {
   opacity?: number;
@@ -23,7 +23,8 @@ export const HlsVideoBackground: React.FC<HlsVideoBackgroundProps> = ({
     const video = videoRef.current;
     if (!video) return;
 
-    let hls: Hls | null = null;
+    let hlsInstance: HlsType | null = null;
+    let isCancelled = false;
 
     const attemptPlay = () => {
       if (!isPaused && video) {
@@ -39,50 +40,56 @@ export const HlsVideoBackground: React.FC<HlsVideoBackgroundProps> = ({
       }
     };
 
-    if (Hls.isSupported()) {
-      hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: true,
-        backBufferLength: 90,
-      });
-
-      hls.loadSource(HLS_VIDEO_URL);
-      hls.attachMedia(video);
-
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        attemptPlay();
-      });
-
-      hls.on(Hls.Events.ERROR, (_event, data) => {
-        if (data.fatal) {
-          switch (data.type) {
-            case Hls.ErrorTypes.NETWORK_ERROR:
-              hls?.startLoad();
-              break;
-            case Hls.ErrorTypes.MEDIA_ERROR:
-              hls?.recoverMediaError();
-              break;
-            default:
-              setHasError(true);
-              hls?.destroy();
-              break;
-          }
-        }
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    // 1. If browser natively supports HLS (iOS, Safari, macOS), use native without downloading hls.js
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = HLS_VIDEO_URL;
-      attemptPlay();
+      video.addEventListener('loadedmetadata', attemptPlay);
     } else {
-      setHasError(true);
+      // 2. Otherwise asynchronously import hls.js on demand
+      import('hls.js').then(({ default: Hls }) => {
+        if (isCancelled || !video) return;
+        if (Hls.isSupported()) {
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+            backBufferLength: 30,
+          });
+          hlsInstance = hls;
+
+          hls.loadSource(HLS_VIDEO_URL);
+          hls.attachMedia(video);
+
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            attemptPlay();
+          });
+
+          hls.on(Hls.Events.ERROR, (_event, data) => {
+            if (data.fatal) {
+              switch (data.type) {
+                case Hls.ErrorTypes.NETWORK_ERROR:
+                  hls.startLoad();
+                  break;
+                case Hls.ErrorTypes.MEDIA_ERROR:
+                  hls.recoverMediaError();
+                  break;
+                default:
+                  hls.destroy();
+                  setHasError(true);
+                  break;
+              }
+            }
+          });
+        }
+      }).catch(() => {
+        setHasError(true);
+      });
     }
 
     const onPlaying = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
-    const onCanPlay = () => attemptPlay();
 
     video.addEventListener('playing', onPlaying);
     video.addEventListener('pause', onPause);
-    video.addEventListener('canplay', onCanPlay);
 
     // Global listener to immediately start video on first user interaction if autoplay was blocked
     const handleFirstUserInteraction = () => {
@@ -94,16 +101,19 @@ export const HlsVideoBackground: React.FC<HlsVideoBackgroundProps> = ({
     window.addEventListener('keydown', handleFirstUserInteraction, { once: true });
 
     return () => {
+      isCancelled = true;
       video.removeEventListener('playing', onPlaying);
       video.removeEventListener('pause', onPause);
-      video.removeEventListener('canplay', onCanPlay);
       window.removeEventListener('pointerdown', handleFirstUserInteraction);
       window.removeEventListener('keydown', handleFirstUserInteraction);
-      if (hls) {
-        hls.destroy();
+      if (hlsInstance) {
+        hlsInstance.destroy();
+      }
+      if (video) {
+        video.removeEventListener('loadedmetadata', attemptPlay);
       }
     };
-  }, []);
+  }, [isPaused]);
 
   useEffect(() => {
     const video = videoRef.current;

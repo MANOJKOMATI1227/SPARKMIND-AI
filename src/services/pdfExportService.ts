@@ -1,4 +1,3 @@
-import { jsPDF } from 'jspdf';
 import { Conversation } from '../types/index.js';
 
 interface ExportPDFOptions {
@@ -40,6 +39,7 @@ export async function exportConversationToPDF(
   options?: ExportPDFOptions
 ): Promise<{ success: boolean; fileName: string }> {
   try {
+    const { jsPDF } = await import('jspdf');
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',

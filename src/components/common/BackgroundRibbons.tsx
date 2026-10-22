@@ -19,9 +19,16 @@ export const BackgroundRibbons: React.FC<BackgroundRibbonsProps> = ({
   isDark = true,
 }) => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    const checkViewport = () => {
+      setIsMobile(window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024));
+    };
+    checkViewport();
+    window.addEventListener('resize', checkViewport, { passive: true });
+
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
 
@@ -31,13 +38,22 @@ export const BackgroundRibbons: React.FC<BackgroundRibbonsProps> = ({
 
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener('change', listener);
-      return () => mediaQuery.removeEventListener('change', listener);
+      return () => {
+        mediaQuery.removeEventListener('change', listener);
+        window.removeEventListener('resize', checkViewport);
+      };
     } else {
       // Legacy fallback
       mediaQuery.addListener(listener);
-      return () => mediaQuery.removeListener(listener);
+      return () => {
+        mediaQuery.removeListener(listener);
+        window.removeEventListener('resize', checkViewport);
+      };
     }
   }, []);
+
+  // Adaptive blur radius: mobile devices use 30px to save GPU fill rate and guarantee 60 FPS
+  const blurBase = isMobile ? 32 : 75;
 
   return (
     <div
@@ -45,11 +61,12 @@ export const BackgroundRibbons: React.FC<BackgroundRibbonsProps> = ({
       style={{
         opacity,
         filter: `brightness(${brightness})`,
+        contain: 'strict',
       }}
       aria-hidden="true"
     >
       {/* Container for the 4 large liquid-light silk ribbons */}
-      <div className="absolute inset-[-15%] w-[130%] h-[130%] pointer-events-none transform-gpu">
+      <div className="absolute inset-[-15%] w-[130%] h-[130%] pointer-events-none transform-gpu will-change-transform">
         {/* Ribbon 1: Electric Violet to Indigo Silk Wave (Top-Left diagonal drift) */}
         <div
           className={`absolute top-[-10%] left-[-10%] w-[85vw] h-[55vh] rounded-[100%] pointer-events-none ${
@@ -58,8 +75,8 @@ export const BackgroundRibbons: React.FC<BackgroundRibbonsProps> = ({
           style={{
             background:
               'linear-gradient(135deg, rgba(91, 46, 255, 0.85) 0%, rgba(124, 58, 237, 0.75) 40%, rgba(139, 92, 246, 0.45) 75%, transparent 100%)',
-            filter: 'blur(70px)',
-            transform: 'rotate(-25deg)',
+            filter: `blur(${blurBase}px)`,
+            transform: 'rotate(-25deg) translate3d(0, 0, 0)',
             willChange: prefersReducedMotion ? 'auto' : 'transform',
             mixBlendMode: isDark ? 'screen' : 'multiply',
           }}
@@ -73,8 +90,8 @@ export const BackgroundRibbons: React.FC<BackgroundRibbonsProps> = ({
           style={{
             background:
               'radial-gradient(ellipse at center, rgba(217, 70, 239, 0.8) 0%, rgba(236, 72, 153, 0.65) 45%, rgba(168, 85, 247, 0.35) 75%, transparent 100%)',
-            filter: 'blur(80px)',
-            transform: 'rotate(20deg)',
+            filter: `blur(${blurBase + 5}px)`,
+            transform: 'rotate(20deg) translate3d(0, 0, 0)',
             willChange: prefersReducedMotion ? 'auto' : 'transform',
             mixBlendMode: isDark ? 'screen' : 'multiply',
           }}
@@ -88,8 +105,8 @@ export const BackgroundRibbons: React.FC<BackgroundRibbonsProps> = ({
           style={{
             background:
               'linear-gradient(45deg, rgba(255, 122, 24, 0.8) 0%, rgba(244, 114, 182, 0.7) 45%, rgba(236, 72, 153, 0.4) 80%, transparent 100%)',
-            filter: 'blur(75px)',
-            transform: 'rotate(15deg)',
+            filter: `blur(${blurBase}px)`,
+            transform: 'rotate(15deg) translate3d(0, 0, 0)',
             willChange: prefersReducedMotion ? 'auto' : 'transform',
             mixBlendMode: isDark ? 'screen' : 'multiply',
           }}
@@ -103,8 +120,8 @@ export const BackgroundRibbons: React.FC<BackgroundRibbonsProps> = ({
           style={{
             background:
               'radial-gradient(circle, rgba(168, 85, 247, 0.75) 0%, rgba(124, 58, 237, 0.6) 45%, rgba(91, 46, 255, 0.3) 75%, transparent 100%)',
-            filter: 'blur(85px)',
-            transform: 'rotate(-15deg)',
+            filter: `blur(${blurBase + 8}px)`,
+            transform: 'rotate(-15deg) translate3d(0, 0, 0)',
             willChange: prefersReducedMotion ? 'auto' : 'transform',
             mixBlendMode: isDark ? 'screen' : 'multiply',
           }}

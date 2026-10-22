@@ -43,18 +43,21 @@ import { MessageBubble } from './components/chat/MessageBubble.js';
 import { Composer } from './components/chat/Composer.js';
 import { WelcomeState } from './components/chat/WelcomeState.js';
 import { ConversationSearchBar } from './components/chat/ConversationSearchBar.js';
-import { SettingsModal } from './components/settings/SettingsModal.js';
-import { AuthModal } from './components/auth/AuthModal.js';
 import { AuthGate } from './components/auth/AuthGate.js';
-import { PromptLibrary } from './components/tools/PromptLibrary.js';
-import { ResumeAssistant } from './components/tools/ResumeAssistant.js';
-import { DataAssistant } from './components/tools/DataAssistant.js';
-import { SavedAnswers } from './components/tools/SavedAnswers.js';
-import { AdminDashboard } from './components/admin/AdminDashboard.js';
-import { WorkspaceHubModal } from './components/tools/WorkspaceHubModal.js';
-import { ShareChatModal } from './components/chat/ShareChatModal.js';
-import { ShortcutsModal } from './components/common/ShortcutsModal.js';
-import { LegalModal } from './components/common/LegalModal.js';
+import { FpsMonitor } from './components/common/FpsMonitor.js';
+
+// Code-split heavy modals and assistant suites for ultra-fast mobile loading & 60 FPS
+const SettingsModal = React.lazy(() => import('./components/settings/SettingsModal.js').then(m => ({ default: m.SettingsModal })));
+const AuthModal = React.lazy(() => import('./components/auth/AuthModal.js').then(m => ({ default: m.AuthModal })));
+const PromptLibrary = React.lazy(() => import('./components/tools/PromptLibrary.js').then(m => ({ default: m.PromptLibrary })));
+const ResumeAssistant = React.lazy(() => import('./components/tools/ResumeAssistant.js').then(m => ({ default: m.ResumeAssistant })));
+const DataAssistant = React.lazy(() => import('./components/tools/DataAssistant.js').then(m => ({ default: m.DataAssistant })));
+const SavedAnswers = React.lazy(() => import('./components/tools/SavedAnswers.js').then(m => ({ default: m.SavedAnswers })));
+const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard.js').then(m => ({ default: m.AdminDashboard })));
+const WorkspaceHubModal = React.lazy(() => import('./components/tools/WorkspaceHubModal.js').then(m => ({ default: m.WorkspaceHubModal })));
+const ShareChatModal = React.lazy(() => import('./components/chat/ShareChatModal.js').then(m => ({ default: m.ShareChatModal })));
+const ShortcutsModal = React.lazy(() => import('./components/common/ShortcutsModal.js').then(m => ({ default: m.ShortcutsModal })));
+const LegalModal = React.lazy(() => import('./components/common/LegalModal.js').then(m => ({ default: m.LegalModal })));
 import { getSharedChat } from './services/shareService.js';
 import { exportConversationToPDF } from './services/pdfExportService.js';
 import {
@@ -1705,104 +1708,126 @@ export default function App() {
         </footer>
       </main>
 
-      {/* Modals & Tools */}
-      <PromptLibrary
-        isOpen={isPromptLibraryOpen}
-        onClose={() => setIsPromptLibraryOpen(false)}
-        onSelectPrompt={(p: string) => setInitialPrompt(p)}
-      />
+      {/* Modals & Tools (Lazy-loaded on demand for 60 FPS mobile speed) */}
+      <React.Suspense fallback={null}>
+        {isPromptLibraryOpen && (
+          <PromptLibrary
+            isOpen={isPromptLibraryOpen}
+            onClose={() => setIsPromptLibraryOpen(false)}
+            onSelectPrompt={(p: string) => setInitialPrompt(p)}
+          />
+        )}
 
-      <ResumeAssistant
-        isOpen={isResumeAssistantOpen}
-        onClose={() => setIsResumeAssistantOpen(false)}
-        onSubmitToChat={(p: string) => setInitialPrompt(p)}
-      />
+        {isResumeAssistantOpen && (
+          <ResumeAssistant
+            isOpen={isResumeAssistantOpen}
+            onClose={() => setIsResumeAssistantOpen(false)}
+            onSubmitToChat={(p: string) => setInitialPrompt(p)}
+          />
+        )}
 
-      <DataAssistant
-        isOpen={isDataAssistantOpen}
-        onClose={() => setIsDataAssistantOpen(false)}
-        onSubmitToChat={(p: string) => setInitialPrompt(p)}
-      />
+        {isDataAssistantOpen && (
+          <DataAssistant
+            isOpen={isDataAssistantOpen}
+            onClose={() => setIsDataAssistantOpen(false)}
+            onSubmitToChat={(p: string) => setInitialPrompt(p)}
+          />
+        )}
 
-      <SavedAnswers
-        isOpen={isSavedAnswersOpen}
-        onClose={() => setIsSavedAnswersOpen(false)}
-        savedAnswers={savedAnswers}
-        onDeleteSavedAnswer={(id: string) => {
-          const updated = savedAnswers.filter((a) => a.id !== id);
-          setSavedAnswers(updated);
-          saveSavedAnswers(user.id, updated);
-        }}
-      />
+        {isSavedAnswersOpen && (
+          <SavedAnswers
+            isOpen={isSavedAnswersOpen}
+            onClose={() => setIsSavedAnswersOpen(false)}
+            savedAnswers={savedAnswers}
+            onDeleteSavedAnswer={(id: string) => {
+              const updated = savedAnswers.filter((a) => a.id !== id);
+              setSavedAnswers(updated);
+              saveSavedAnswers(user.id, updated);
+            }}
+          />
+        )}
 
-      <AdminDashboard
-        isOpen={isAdminOpen}
-        onClose={() => {
-          setIsAdminOpen(false);
-          checkApiKeysStatus();
-        }}
-      />
+        {isAdminOpen && (
+          <AdminDashboard
+            isOpen={isAdminOpen}
+            onClose={() => {
+              setIsAdminOpen(false);
+              checkApiKeysStatus();
+            }}
+          />
+        )}
 
-      <WorkspaceHubModal
-        isOpen={isWorkspaceHubOpen}
-        onClose={() => setIsWorkspaceHubOpen(false)}
-        workspace={activeWorkspace}
-        onSubmitToChat={(p: string) => setInitialPrompt(p)}
-      />
+        {isWorkspaceHubOpen && (
+          <WorkspaceHubModal
+            isOpen={isWorkspaceHubOpen}
+            onClose={() => setIsWorkspaceHubOpen(false)}
+            workspace={activeWorkspace}
+            onSubmitToChat={(p: string) => setInitialPrompt(p)}
+          />
+        )}
 
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        user={user}
-        locales={locales}
-        currentLanguage={currentLanguage}
-        onSelectLanguage={(lang) => {
-          setCurrentLanguage(lang);
-          const updated = { ...user, preferredLanguage: lang };
-          setUser(updated);
-          saveUserProfile(updated);
-        }}
-        theme={theme}
-        onSelectTheme={handleSelectTheme}
-        systemIsDark={systemIsDark}
-        selectedModel={user.preferredModel || 'gemini-3.8-flash'}
-        onSelectModel={(modelId) => {
-          const updated = { ...user, preferredModel: modelId };
-          setUser(updated);
-          saveUserProfile(updated);
-        }}
-        imageQuality={user.imageQuality || 'high'}
-        onSelectImageQuality={(quality) => {
-          const updated = { ...user, imageQuality: quality };
-          setUser(updated);
-          saveUserProfile(updated);
-        }}
-        onClearHistory={handleClearHistory}
-        onOpenAuth={openAuthModal}
-        onOpenLegal={handleOpenLegal}
-      />
+        {isSettingsOpen && (
+          <SettingsModal
+            isOpen={isSettingsOpen}
+            onClose={() => setIsSettingsOpen(false)}
+            user={user}
+            locales={locales}
+            currentLanguage={currentLanguage}
+            onSelectLanguage={(lang) => {
+              setCurrentLanguage(lang);
+              const updated = { ...user, preferredLanguage: lang };
+              setUser(updated);
+              saveUserProfile(updated);
+            }}
+            theme={theme}
+            onSelectTheme={handleSelectTheme}
+            systemIsDark={systemIsDark}
+            selectedModel={user.preferredModel || 'gemini-3.8-flash'}
+            onSelectModel={(modelId) => {
+              const updated = { ...user, preferredModel: modelId };
+              setUser(updated);
+              saveUserProfile(updated);
+            }}
+            imageQuality={user.imageQuality || 'high'}
+            onSelectImageQuality={(quality) => {
+              const updated = { ...user, imageQuality: quality };
+              setUser(updated);
+              saveUserProfile(updated);
+            }}
+            onClearHistory={handleClearHistory}
+            onOpenAuth={openAuthModal}
+            onOpenLegal={handleOpenLegal}
+          />
+        )}
 
-      {/* Share Conversation Modal */}
-      <ShareChatModal
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        conversation={conversationToShare}
-        user={user}
-      />
+        {isShareModalOpen && (
+          <ShareChatModal
+            isOpen={isShareModalOpen}
+            onClose={() => setIsShareModalOpen(false)}
+            conversation={conversationToShare}
+            user={user}
+          />
+        )}
 
-      {/* Keyboard Shortcuts Cheat Sheet Modal */}
-      <ShortcutsModal
-        isOpen={isShortcutsOpen}
-        onClose={() => setIsShortcutsOpen(false)}
-        onExecuteShortcut={handleExecuteShortcut}
-      />
+        {isShortcutsOpen && (
+          <ShortcutsModal
+            isOpen={isShortcutsOpen}
+            onClose={() => setIsShortcutsOpen(false)}
+            onExecuteShortcut={handleExecuteShortcut}
+          />
+        )}
 
-      {/* Terms and Conditions & MIT License Modal */}
-      <LegalModal
-        isOpen={isLegalModalOpen}
-        onClose={() => setIsLegalModalOpen(false)}
-        initialTab={legalModalTab}
-      />
+        {isLegalModalOpen && (
+          <LegalModal
+            isOpen={isLegalModalOpen}
+            onClose={() => setIsLegalModalOpen(false)}
+            initialTab={legalModalTab}
+          />
+        )}
+      </React.Suspense>
+
+      {/* Real-time FPS & Performance Speedometer for Mobile & Tablets */}
+      <FpsMonitor showBadge={true} />
 
       {/* In-app Notice & Alert Modal */}
       {appNotice && (
