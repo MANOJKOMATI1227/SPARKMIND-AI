@@ -27,238 +27,8 @@ export interface ChatResponseResult {
   error?: string;
 }
 
-const FLASH_AI_REPLY = `⚡ **FLASH REASONING** • Direct Answer
-
-**Artificial Intelligence (AI)** is the engineering of computer software and systems capable of performing tasks typically requiring human intelligence.
-
-- **Machine Learning (ML):** Parametric algorithms inferring patterns directly from training distributions without hardcoded logic.
-- **Deep Neural Networks:** Multi-layered representations (Transformers, Convolutional Networks) modeling high-dimensional data.
-- **Key Capabilities:** Natural Language Understanding (LLMs), Computer Vision (diffusion/detection), Autonomous Planning, Speech Synthesis.
-- **Taxonomy:** Narrow AI (ANI — production systems today) ➔ General AI (AGI — cross-domain research target) ➔ Super AI (ASI — theoretical horizon).`;
-
-const MEDIUM_AI_REPLY = `⚖️ **MEDIUM REASONING** • Structured Practical Analysis
-
-### 💡 Core Concept & Principles
-**Artificial Intelligence (AI)** represents computer science systems engineered to perceive complex environments, process high-dimensional inputs, and execute goal-directed reasoning or generation autonomously.
-
-### 🛠️ Foundational Technological Pillars
-1. **Statistical & Machine Learning (ML):** Systems updating internal weights through gradient descent optimization rather than hand-crafted rule engines.
-2. **Deep Representation Learning:** High-dimensional vector spaces and self-attention transformers capable of zero-shot transfer across language, code, vision, and audio.
-3. **Reinforcement Learning from Human Feedback (RLHF):** Aligning raw probabilistic next-token predictions with human utility, safety guidelines, and factual accuracy.
-
-### 📊 Real-World Industry Deployment
-| Class | Core Characteristics | Production Deployment |
-| :--- | :--- | :--- |
-| **Narrow AI (ANI)** | Highly tuned for dedicated distribution | Fraud detection, AlphaFold, search indexing |
-| **Generative AI** | Multi-modal synthesis of novel tokens | Code synthesis, LLM assistants, image generation |
-| **General AI (AGI)** | Unified generalist cognitive adaptability | Frontier AI industry benchmark |
-
-### 📌 Practical Engineering Takeaway
-Modern enterprise AI focuses on hybrid systems: combining dense foundation models with vector RAG (Retrieval-Augmented Generation), semantic caches, and deterministic tool APIs to deliver low-latency, hallucination-resistant answers.`;
-
-const DEEP_AI_REPLY = `🧠 **DEEP REASONING & EXTENDED THINKING**
-
-### 🧠 Deep Reasoning & Chain of Thought
-> - **Problem Decomposition:** To deeply define AI, we must differentiate between symbolic knowledge representation (GOFAI / expert systems) and connectionist empirical learning (deep neural networks).
-> - **Mechanistic Analysis:** Deep modern AI is grounded in self-attention transformers: $A = \\text{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V$. By projecting tokens into $d$-dimensional latent vector spaces, systems capture semantic affinities and synthesize emergent logic across vast context windows.
-> - **Inference-Time Scaling vs. Pre-training:** While Chinchilla scaling laws govern parameters and tokens during pre-training, frontier reasoning models demonstrate that test-time search (MCTS, verification loops, self-correction tokens) exponentially enhances deduction accuracy on complex math and coding benchmarks.
-> - **Edge Cases & Failure Modes:** Residual hallucinations in ungrounded latent spaces, mechanistic interpretability blindspots, and catastrophic forgetting under non-stationary distributions.
-
----
-
-### 🔬 Exhaustive Technical Architecture
-1. **Mathematical Representation & Latent Geometries:**
-   Inputs are vectorized into continuous manifolds. Multi-head attention heads capture orthogonal syntactic and semantic dependencies, computing non-linear transformations through feed-forward layers with RMSNorm and SwiGLU activations.
-
-2. **Optimization & Training Dynamics:**
-   Pre-training optimizes cross-entropy loss over trillions of tokens using AdamW optimizers. Post-training applies Direct Preference Optimization (DPO) and Reinforcement Learning with verifiable reward models (RLVR) to instill rigorous reasoning paths.
-
-3. **Inference & Orchestration Layer:**
-   Production AI employs speculative decoding, KV-cache quantization, and agentic tool-use loops to ground neural probabilistic output in deterministic external reality.
-
-### ⚖️ Verification & Frontier Trajectory
-The frontier of AI is pivoting toward **Neuro-Symbolic hybrids** (coupling neural intuition with formal mathematical solvers) and **embodied perception**, driving computing from passive prediction toward active physical agency.`;
-
-function getInstantReply(prompt: string, mode: ReasoningMode = 'flash'): string | null {
-  const p = prompt.trim().toLowerCase().replace(/[?!.,]+$/, '');
-
-  if (p === 'ai' || p === 'what is ai' || p === 'define ai' || p === 'explain ai' || p === 'artificial intelligence' || p === 'about ai') {
-    if (mode === 'deep') return DEEP_AI_REPLY;
-    if (mode === 'medium') return MEDIUM_AI_REPLY;
-    return FLASH_AI_REPLY;
-  }
-
-  if (p === 'ml' || p === 'what is ml' || p === 'machine learning') {
-    if (mode === 'deep') {
-      return `🧠 **DEEP REASONING & EXTENDED THINKING**
-
-### 🧠 Deep Reasoning & Chain of Thought
-> - **Core Foundation:** Machine Learning replaces hand-crafted deductive logic with inductive statistical inference: minimizing empirical risk $\\mathcal{R}_{emp}(\\theta) = \\frac{1}{N}\\sum_{i=1}^N \\mathcal{L}(f_\\theta(x_i), y_i) + \\lambda \\Omega(\\theta)$.
-> - **Generalization & The Bias-Variance Tradeoff:** High-capacity neural networks overcome the classical U-shaped risk curve through benign overfitting and the double descent phenomenon in overparameterized regimes.
-> - **Structural Paradigms:** Supervised, Unsupervised/Self-Supervised (Contrastive/Masked Autoencoding), and Reinforcement Learning (Markov Decision Processes).
-
----
-
-### 🔬 Technical Taxonomy
-1. **Supervised Learning:** Parametric mapping $f: \\mathcal{X} \\to \\mathcal{Y}$ (ResNet, BERT, XGBoost).
-2. **Self-Supervised Pretraining:** Masked token reconstruction predicting $p(x_t | x_{<t})$, learning universal representations without human labels.
-3. **Reinforcement Learning:** Policy gradient theorem $\\nabla_\\theta J(\\theta) = \\mathbb{E}[\\nabla_\\theta \\log \\pi_\\theta(a|s) Q^\\pi(s,a)]$, enabling autonomous agents to master non-linear environments.`;
-    }
-    if (mode === 'medium') {
-      return `⚖️ **MEDIUM REASONING** • Structured Technical Guide
-
-### 💡 What is Machine Learning?
-**Machine Learning (ML)** is the branch of artificial intelligence where algorithms learn predictive patterns from empirical data rather than executing hardcoded instructions.
-
-### 🛠️ The 3 Primary Paradigms
-1. **Supervised Learning:** Training models on labeled inputs and outputs (e.g., classification, regression, fraud detection).
-2. **Unsupervised Learning:** Discovering latent clusters and distributions in unlabeled data (e.g., K-Means, PCA, autoencoders).
-3. **Reinforcement Learning:** Agents learning optimal decision policies through reward signals in dynamic environments.
-
-### 📌 Production Best Practices
-Real-world ML pipelines require robust feature stores, continuous drift detection (data drift & concept drift), cross-validation, and low-latency inference serving.`;
-    }
-    return `⚡ **FLASH REASONING** • Direct Answer
-
-**Machine Learning (ML)** is a subset of AI where systems learn from data to make predictions without being explicitly programmed.
-
-- **Supervised:** Labeled datasets (classification, regression).
-- **Unsupervised:** Pattern discovery in unlabeled data (clustering, dimensionality reduction).
-- **Reinforcement:** Trial-and-error reward optimization (robotics, gaming agents).`;
-  }
-
-  if (p === 'hi' || p === 'hello' || p === 'hey') {
-    if (mode === 'deep') {
-      return `🧠 **DEEP REASONING MODE ACTIVE**\n\nGreetings! I am **SparkMind AI** operating in **Extended Thinking & Deep Reasoning Mode**. I am prepared to conduct multi-perspective technical analysis, rigorous mathematical deductions, code architectures, or deep research across any domain. How may I assist your inquiry?`;
-    }
-    if (mode === 'medium') {
-      return `⚖️ **MEDIUM MODE ACTIVE**\n\nHello! I am **SparkMind AI** in **Balanced Mode**. Ready to assist you with structured explanations, practical code examples, learning modules, or business strategy. What topic would you like to explore?`;
-    }
-    return `👋 **FLASH MODE ACTIVE**\n\nHello! I am **SparkMind AI**. Ultra-fast replies enabled. Ask any question, paste code, or request a solution.`;
-  }
-
-  if (p === 'python' || p === 'what is python' || p === 'explain python') {
-    if (mode === 'deep') {
-      return `🧠 **DEEP REASONING & EXTENDED THINKING**
-
-### 🧠 Deep Reasoning & Chain of Thought
-> - **Language Architecture:** Python is an interpreted, dynamically typed, multi-paradigm language implemented over the CPython bytecode virtual machine. Memory management relies on reference counting coupled with a generational cyclic garbage collector.
-> - **Concurrency & Runtime Limits:** The Global Interpreter Lock (GIL) synchronizes thread access to Python object internals, preventing true multicore parallelism in CPU-bound threads (mitigated in Python 3.13 free-threaded builds or via \`multiprocessing\`/\`asyncio\` event loops).
-> - **Abstract Syntax & Execution Pipeline:** Source (.py) ➔ Tokens ➔ AST ➔ Bytecode (.pyc) ➔ CPython Evaluation Loop (\`_PyEval_EvalFrameDefault\`).
-
----
-
-### 🔬 Exhaustive Architectural Breakdown
-1. **Dynamic Type System:** Pure object orientation where even primitive integers, functions, and modules are heap-allocated \`PyObject\` structures with type pointers and reference counts.
-2. **Standard Ecosystem Strengths:** Native C-extensions via NumPy, PyTorch, and Polars, bridging high-level expressive syntax with vectorized SIMD hardware acceleration.
-3. **Metaprogramming & Introspection:** Descriptors, decorators, metaclasses (\`type\`), and dunder protocols enabling powerful ORMs and framework meta-abstractions.`;
-    }
-    if (mode === 'medium') {
-      return `⚖️ **MEDIUM REASONING** • Structured Technical Guide
-
-### 💡 Core Concept & Overview
-**Python** is a high-level, general-purpose programming language renowned for its clean, human-readable syntax and massive software ecosystem.
-
-### ⚙️ Practical Mechanics
-- **Interpreted Execution:** Compiles to bytecode executed by the Python runtime (CPython, PyPy).
-- **Batteries-Included:** Standard library covers networking (\`http\`), concurrency (\`asyncio\`), math, and file systems.
-- **Dynamic Typing:** Rapid prototyping with optional PEP 484 static type annotations.
-
-### 🛠️ Industry Applications
-- **AI & Data Science:** PyTorch, TensorFlow, Pandas, Scikit-learn.
-- **Backend & Web APIs:** FastAPI, Django, Flask.
-- **Automation & Scripting:** DevOps, web scraping, scientific research.`;
-    }
-    return `⚡ **FLASH REASONING** • Direct Answer
-
-**Python** is a high-level, dynamically typed language emphasizing code readability and development velocity.
-
-- **Primary Use Cases:** AI/Machine Learning, Data Engineering, Backend APIs (FastAPI/Django), Automation.
-- **Key Features:** Clean indentation-based syntax, cross-platform, extensive standard library.
-- **Example:**
-\`\`\`python
-def greet(name: str) -> str:
-    return f"Hello, {name}!"
-\`\`\``;
-  }
-
-  if (p === 'sparkmind' || p === 'what is sparkmind' || p === 'about sparkmind') {
-    if (mode === 'deep') {
-      return `🧠 **DEEP REASONING & EXTENDED THINKING**
-
-### 🧠 Deep Reasoning & Chain of Thought
-> - **System Architecture:** SparkMind integrates client-side local sandboxes with server-side Gemini orchestration. It implements prompt-level reasoning mode compilation (mapping user intent to discrete thinking budgets and model candidates).
-> - **Cognitive Pipeline:** Requests undergo semantic normalization, access verification, and routing across Gemini 3 Flash-Lite and Gemini 3.8 Flash with dynamic ThinkingLevel parameters.
-> - **Security & Sandboxing:** Real-time account permission enforcement, sandboxed iframe execution for user code, and persistent client-side encryption.
-
----
-
-### 🔬 Exhaustive Platform Architecture
-1. **Frontier Multimodal Engine:** Leverages Google Gemini 3 models with adaptive thinking tokens.
-2. **Sandboxed Code Execution:** Secure in-browser JavaScript V8 and Pyodide/Python runtimes.
-3. **Granular Role-Based Access (RBAC):** Real-time admin control, account management, and session heartbeat verification.`;
-    }
-    if (mode === 'medium') {
-      return `⚖️ **MEDIUM REASONING** • Structured Overview
-
-### 💡 What is SparkMind?
-**SparkMind** is a next-generation AI Chatbot & AI Workspace engineered for rapid knowledge discovery and production execution.
-
-### 🛠️ Core Capabilities
-- **Multimodal Intelligence:** Powered by Google Gemini with live web grounding, vision, and document analysis.
-- **Adaptive Reasoning:** Switch between ⚡ Flash (instant direct replies), ⚖️ Medium (structured breakdowns), and 🧠 Deep (extended cognitive chain-of-thought).
-- **Integrated Execution Engines:** Live in-browser runners for Python 3, JavaScript, TypeScript, SVG, and HTML.
-- **Specialized Workspaces:** Dedicated modes for Students, Developers, Writers, and Analysts.
-
-### 📌 Production Architecture
-Built with React 19, TypeScript, Tailwind CSS, Vite, and Node/Express.`;
-    }
-    return `⚡ **FLASH REASONING** • Direct Answer
-
-**SparkMind** is an advanced AI workspace and high-speed chatbot powered by Google Gemini. It empowers students, developers, writers, and analysts to Chat, Code, Learn, and Create with client-side code execution, multi-modal file attachments, and cognitive reasoning modes.`;
-  }
-
-  if (p === 'react' || p === 'what is react' || p === 'explain react') {
-    if (mode === 'deep') {
-      return `🧠 **DEEP REASONING & EXTENDED THINKING**
-
-### 🧠 Deep Reasoning & Chain of Thought
-> - **Fiber Architecture & Scheduling:** React Fiber rewrote the legacy recursive stack reconciler into an incremental, interruptible work-loop. Work units (\`FiberNode\`) form a singly-linked tree structure (child, sibling, return) enabling time-slicing and priority levels via the Scheduler.
-> - **Reconciliation Heuristics:** $O(n^3)$ tree diffing is reduced to $O(n)$ by assuming two elements of different types produce different trees, and by utilizing unique \`key\` props for stable reconciliation across renders.
-> - **Concurrent Rendering & Server Components (RSC):** Transitioning React from purely client-side VDOM diffing to hybrid compilation: Server Components stream zero-bundle-size JSON payloads over HTTP, seamlessly integrating with client islands.
-
----
-
-### 🔬 In-Depth Architectural Breakdown
-1. **Dual Buffering Technique:** React Fiber operates with two trees simultaneously: \`current\` (visible DOM representation) and \`workInProgress\` (uncommitted staged changes). Upon completion, a pointer swap renders updates atomically.
-2. **React 19 Innovations:** Native Actions for optimistic UI updates (\`useOptimistic\`), Server Functions, \`use\` API for Promise unboxing, and automatic memoization via the React Compiler.`;
-    }
-    if (mode === 'medium') {
-      return `⚖️ **MEDIUM REASONING** • Structured Technical Guide
-
-### 💡 Core Concept & Overview
-**React** is a declarative, component-based UI library developed by Meta. It models user interfaces as pure functions of state: $UI = f(state)$.
-
-### ⚙️ Practical Mechanics
-- **Component Hierarchy:** Reusable, composable UI building blocks.
-- **Fiber Reconciler:** Asynchronous, prioritizable diffing algorithm comparing previous and next Virtual DOM trees.
-- **State Management & Hooks:** Primitive state (\`useState\`), lifecycle/side-effects (\`useEffect\`), and contexts (\`useContext\`).
-
-### 🛠️ Industry Applications & Ecosystem
-- **Frameworks:** Next.js, Remix, Vite SPA.
-- **Ecosystem:** TanStack Query, Zustand, Tailwind CSS, Shadcn UI.`;
-    }
-    return `⚡ **FLASH REASONING** • Direct Answer
-
-**React** is an open-source JavaScript library developed by Meta for building declarative, component-based user interfaces.
-
-- **Core Mechanism:** Virtual DOM reconciliation (Fiber architecture).
-- **Key Features:** JSX syntax, unidirectional data flow, hooks (\`useState\`, \`useEffect\`).
-- **Modern Standard:** React 19 with Server Actions, Server Components, and native \`use\` hook.`;
-  }
-
-  return null;
-}
+// Real Gemini AI streaming and interaction service
+// No hardcoded static definitions: all questions are processed by Google Gemini models
 
 export function isVisualRequestIntent(message: string, hasAttachments: boolean = false): boolean {
   if (!message) return false;
@@ -477,31 +247,8 @@ Focus on modularity, clear validation criteria, and rapid iterative execution.`;
 }
 
 export async function sendChatMessage(options: ChatRequestOptions): Promise<ChatResponseResult> {
-  const normalized = options.message.trim().toLowerCase().replace(/[?!.,]+$/, '');
-
-  // Sub-second (fraction-of-a-second) instant path for micro-queries like 'ai' with distinct mode-aware depth
-  const instantReply = (!options.attachments || options.attachments.length === 0) && !options.useWebGrounding
-    ? getInstantReply(normalized, options.mode)
-    : null;
-
-  if (instantReply) {
-    // Background ping to maintain activity metrics
-    fetch('/api/users/heartbeat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: options.userId || '' }),
-    }).catch(() => {});
-
-    return {
-      success: true,
-      reply: instantReply,
-      reasoningMode: options.mode || 'flash',
-      modelUsed: options.mode === 'deep' ? 'gemini-3.8-flash (Deep Reasoning)' : options.mode === 'medium' ? 'gemini-3.8-flash (Balanced)' : 'gemini-3.1-flash-lite (Instant)',
-      groundingType: 'gemini',
-    };
-  }
-
   const endpoints = ['/api/chat', '/.netlify/functions/chat'];
+  let lastErrorMessage = '';
 
   for (const endpoint of endpoints) {
     try {
@@ -520,7 +267,7 @@ export async function sendChatMessage(options: ChatRequestOptions): Promise<Chat
         continue;
       }
 
-      // Read response body stream once as text
+      // Read response body stream as text
       const text = await response.text();
       const trimmed = text.trim();
 
@@ -532,7 +279,6 @@ export async function sendChatMessage(options: ChatRequestOptions): Promise<Chat
         response.headers.get('content-type')?.includes('text/html');
 
       if (isHtmlResponse) {
-        console.warn(`HTML page received instead of JSON from ${endpoint} (Status ${response.status}). Trying next endpoint...`);
         continue;
       }
 
@@ -540,7 +286,6 @@ export async function sendChatMessage(options: ChatRequestOptions): Promise<Chat
       try {
         data = JSON.parse(text);
       } catch {
-        console.warn(`Non-JSON response received from ${endpoint} (Status ${response.status})`);
         continue;
       }
 
@@ -548,7 +293,7 @@ export async function sendChatMessage(options: ChatRequestOptions): Promise<Chat
       if (data && !data.success && data.error?.includes('Access Denied')) {
         return {
           success: false,
-          reply: '',
+          reply: data.error,
           error: data.error,
         };
       }
@@ -564,6 +309,15 @@ export async function sendChatMessage(options: ChatRequestOptions): Promise<Chat
           detectedLanguage: data.detectedLanguage,
         };
       }
+
+      if (data && !data.success && data.error) {
+        lastErrorMessage = data.error;
+        return {
+          success: false,
+          reply: data.error,
+          error: data.error,
+        };
+      }
     } catch (err: any) {
       if (err?.name === 'AbortError' || options.signal?.aborted) {
         return {
@@ -573,13 +327,11 @@ export async function sendChatMessage(options: ChatRequestOptions): Promise<Chat
           error: 'Query stopped by user.',
         };
       }
-      console.warn(`Error requesting ${endpoint}:`, err?.message || err);
+      lastErrorMessage = err?.message || 'Network request failed';
     }
   }
 
-  // Autonomous Client-Side Visual & Cognitive Synthesis Engine:
-  // If backend endpoints returned HTML or are unreachable (e.g. during Netlify deploy, GitHub Pages static hosting, or cold-starts),
-  // seamlessly synthesize the reply directly on the client so the user never receives a broken error message.
+  // Handle explicit image & poster generation intent if backend timed out
   const hasAttachments = Boolean(options.attachments && options.attachments.length > 0);
   const isVisual = isVisualRequestIntent(options.message, hasAttachments);
 
@@ -620,14 +372,12 @@ export async function sendChatMessage(options: ChatRequestOptions): Promise<Chat
     };
   }
 
-  // General chat & coding fallback (Never shows 200 format error to user)
-  const fallbackReply = getClientFallbackReply(options);
   return {
-    success: true,
-    reply: fallbackReply,
-    reasoningMode: options.mode || 'flash',
-    modelUsed: 'gemini-3.1-flash-lite (Autonomous Engine)',
-    groundingType: 'gemini',
+    success: false,
+    reply: lastErrorMessage
+      ? `⚠️ ${lastErrorMessage}`
+      : '⚠️ SparkMind AI service is currently connecting to Google Gemini. Please wait a few seconds and try again.',
+    error: lastErrorMessage || 'Service unavailable',
   };
 }
 

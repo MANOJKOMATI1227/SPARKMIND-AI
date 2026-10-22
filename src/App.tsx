@@ -244,9 +244,10 @@ export default function App() {
 
   useEffect(() => {
     checkApiKeysStatus();
-    const interval = setInterval(checkApiKeysStatus, 15000);
+    if (!isAdminOpen) return;
+    const interval = setInterval(checkApiKeysStatus, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAdminOpen]);
 
   const handleOpenLegal = (tab: 'terms' | 'license' = 'terms') => {
     setLegalModalTab(tab);

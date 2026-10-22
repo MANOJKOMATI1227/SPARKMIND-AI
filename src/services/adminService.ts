@@ -706,8 +706,8 @@ export async function fetchApiKeysSummary(): Promise<ApiKeysSummary | null> {
       const data = await res.json();
       return data;
     }
-  } catch (e) {
-    console.warn('Failed to fetch API keys summary:', e);
+  } catch {
+    // Offline or serverless endpoint not provisioned - return null silently
   }
   return null;
 }
