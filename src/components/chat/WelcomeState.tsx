@@ -43,7 +43,7 @@ export const WelcomeState: React.FC<WelcomeStateProps> = ({
           </div>
         </div>
 
-        {/* Big Sized SPARKMIND Name with High Brightness & Vivid Gradient */}
+        {/* SPARKMINDAI Primary Heading & Tagline */}
         <div className="flex flex-col items-center gap-1.5">
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight sm:tracking-normal drop-shadow-[0_10px_35px_rgba(236,72,153,0.35)]">
             <span className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-800 dark:from-white dark:via-purple-100 dark:to-white bg-clip-text text-transparent">
@@ -52,10 +52,17 @@ export const WelcomeState: React.FC<WelcomeStateProps> = ({
             <span className="bg-gradient-to-r from-amber-500 via-rose-500 to-violet-600 dark:from-amber-300 dark:via-pink-400 dark:to-violet-400 bg-clip-text text-transparent font-black ml-1.5">
               MIND
             </span>
+            <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent font-black ml-1">
+              AI
+            </span>
           </h1>
 
-          <p className="text-sm sm:text-base font-semibold text-slate-600 dark:text-slate-300 tracking-wide max-w-md">
-            Next-Generation AI Chatbot & Intelligent Workspace
+          <p className="text-sm sm:text-base font-semibold text-slate-600 dark:text-slate-300 tracking-wide max-w-lg">
+            SparkMindAI — Your Intelligent AI Workspace
+          </p>
+
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md">
+            Meet SparkMindAI, your AI-powered workspace for conversations, coding, learning and content creation.
           </p>
 
           {/* Subtitle Accent Badge */}

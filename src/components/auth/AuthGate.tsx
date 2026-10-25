@@ -22,6 +22,9 @@ import {
   Check,
   Globe,
   ExternalLink,
+  Code2,
+  GraduationCap,
+  Palette,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { verifyAdminCredentials } from '../../services/adminService.js';
@@ -361,6 +364,9 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onContinueAsGuest, onAdminLo
             <span className="font-black text-xl tracking-wider bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 dark:from-amber-400 dark:via-orange-400 dark:to-rose-400 bg-clip-text text-transparent">
               MIND
             </span>
+            <span className="font-black text-xl tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent ml-0.5">
+              AI
+            </span>
           </div>
           <span className="hidden sm:inline-flex text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 ml-1">
             AI WORKSPACE
@@ -378,7 +384,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onContinueAsGuest, onAdminLo
         )}
       </header>
 
-      <div className="relative z-10 w-full max-w-md px-4 pt-4 sm:pt-6 pb-12 sm:pb-16">
+      <div className="relative z-10 w-full max-w-md px-4 pt-4 sm:pt-6 pb-8">
         {/* Brand Header */}
         <div className="text-center mb-5">
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl border border-white/60 dark:border-white/20 bg-white/80 dark:bg-slate-900/80 shadow-xl backdrop-blur-2xl mb-2.5">
@@ -394,6 +400,9 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onContinueAsGuest, onAdminLo
               <span className="font-black text-2xl tracking-wider bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 dark:from-amber-400 dark:via-orange-400 dark:to-rose-400 bg-clip-text text-transparent ml-0.5">
                 MIND
               </span>
+              <span className="font-black text-2xl tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent ml-0.5">
+                AI
+              </span>
             </div>
           </div>
 
@@ -405,8 +414,8 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onContinueAsGuest, onAdminLo
               : mode === 'forgot'
               ? 'Reset Account Password'
               : mode === 'signup'
-              ? 'Create SparkMind Account'
-              : 'Sign in to SparkMind AI'}
+              ? 'Create SparkMindAI Account'
+              : 'SparkMindAI — Your Intelligent AI Workspace'}
           </h1>
           <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto font-medium">
             {authType === 'admin'
@@ -415,7 +424,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onContinueAsGuest, onAdminLo
                 : 'Administrator credentials required for user management & system telemetry.'
               : mode === 'forgot'
               ? 'Enter your registered email to reset your account password.'
-              : 'Authenticate to access private conversations, workspaces & unlimited uploads.'}
+              : 'Meet SparkMindAI, your AI-powered workspace for conversations, coding, learning and content creation.'}
           </p>
         </div>
 
@@ -1226,6 +1235,112 @@ export const AuthGate: React.FC<AuthGateProps> = ({ onContinueAsGuest, onAdminLo
           <span>.</span>
         </div>
       </div>
+
+      {/* Public Search-Engine & Visitor Feature Guide */}
+      <section className="relative z-10 w-full max-w-4xl px-4 mt-4 pb-16">
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs font-semibold text-amber-600 dark:text-amber-400 mb-2">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>EXPLORE SPARKMINDAI CAPABILITIES</span>
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            Built for Developers, Students, Creators &amp; Researchers
+          </h2>
+          <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-lg mx-auto">
+            Everything you need in one unified platform with Google Gemini multi-model intelligence.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          {/* Card 1: What is SparkMindAI */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-amber-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/15 text-amber-500 mb-3">
+              <Bot className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">What is SparkMindAI?</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              An all-in-one AI workspace powered by Google Gemini, unifying deep cognitive reasoning, full-stack code assistance, and visual generation.
+            </p>
+          </article>
+
+          {/* Card 2: AI Chat Assistant */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-pink-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-pink-500/15 text-pink-500 mb-3">
+              <Zap className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">AI Chat Assistant</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Switch seamlessly between Flash (instant replies), Medium (structured explanations), and Deep (exhaustive proofs and chain-of-thought).
+            </p>
+          </article>
+
+          {/* Card 3: Coding Assistant */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-purple-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-500/15 text-purple-500 mb-3">
+              <Code2 className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Coding Assistant</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Write, debug, and review code in TypeScript, Python, React, SQL, and more with formatted syntax highlighting and one-click copy.
+            </p>
+          </article>
+
+          {/* Card 4: Study Assistant */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-blue-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/15 text-blue-500 mb-3">
+              <GraduationCap className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Study Assistant</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Generate 8-card study flashcards, formula cheat sheets, complex topic analogies, and practice quizzes for efficient mastery.
+            </p>
+          </article>
+
+          {/* Card 5: Document Understanding */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-emerald-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-500 mb-3">
+              <FileText className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Document Understanding</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Upload PDF documents, study notes, or raw datasets for instant executive summaries, data extraction, and cross-document Q&amp;A.
+            </p>
+          </article>
+
+          {/* Card 6: Multilingual Conversations */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-teal-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-500/15 text-teal-500 mb-3">
+              <Globe className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Multilingual Conversations</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Converse fluidly in English, Hindi, Telugu, Spanish, French, and additional languages with natural nuances and speech synthesis.
+            </p>
+          </article>
+
+          {/* Card 7: AI Poster Creation */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-orange-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500/15 text-orange-500 mb-3">
+              <Palette className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">AI Poster Creation</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Design tailored marketing flyers, conference slides, and social media announcements pre-formatted for Instagram, LinkedIn, and WhatsApp.
+            </p>
+          </article>
+
+          {/* Card 8: Privacy & Security */}
+          <article className="rounded-2xl border border-white/40 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 p-4 backdrop-blur-xl shadow-sm hover:border-indigo-400/40 transition">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-500 mb-3">
+              <Shield className="h-5 w-5" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Privacy &amp; Security</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Zero public leakage of private chats. Authentication backed by Firebase Auth and Google OAuth, safeguarding user sessions and uploaded data.
+            </p>
+          </article>
+        </div>
+      </section>
     </div>
   );
 };
